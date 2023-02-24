@@ -1,1 +1,2 @@
-export default {}
+import SignBoard from './core'
+export default SignBoard

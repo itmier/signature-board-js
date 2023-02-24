@@ -15,9 +15,8 @@
     "declaration": true,
     "declarationDir": "dist/type",
     "outDir": "dist/type",
-    "typeRoots": ["./types", "./node_modules/@types"],
-    "baseUrl": "./"
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": ["lib/**/*.ts", "lib/**/*.tsx", "example/**/*.ts"],
+  "include": ["lib/**/*.ts", "lib/**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
