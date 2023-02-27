@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "description": "手写电子签名板(JS版本)",
-  "main": "dist/signature-board.js",
+  "main": "dist/signature-board-js.js",
   "types": "dist/type/main.d.ts",
   "publisher": "itmier@126.com",
   "repository": {

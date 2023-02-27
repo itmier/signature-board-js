@@ -8,12 +8,12 @@
 
 ```ts
 <script setup lang="ts">
-import SignBoard from 'signature-board-js'
+import SBoard from 'signature-board-js'
 import { onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
-const signBoard: Ref<SignBoard | undefined> = ref()
+const signBoard: Ref<SBoard | undefined> = ref()
 onMounted(() => {
-  signBoard.value = SignBoard.getInstance({
+  signBoard.value = SBoard.getInstance({
     selectorID: 'example-box'
   })
 })

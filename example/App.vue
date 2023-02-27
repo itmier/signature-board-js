@@ -7,13 +7,13 @@
 </template>
 
 <script setup lang="ts">
-// import type SignBoard  from '../dist/type/core'
-import SignBoard from '../lib/main'
+// import type SBoard  from '../dist/type/core'
+import SBoard from '../lib/main'
 import { onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
-const signBoard: Ref<SignBoard | undefined> = ref()
+const signBoard: Ref<SBoard | undefined> = ref()
 onMounted(() => {
-  signBoard.value = SignBoard.getInstance({
+  signBoard.value = SBoard.getInstance({
     selectorID: 'example-box'
   })
 })

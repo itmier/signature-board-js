@@ -1,7 +1,7 @@
 /*
  * @Author: 王云飞
  * @Date: 2023-02-23 16:26:05
- * @LastEditTime: 2023-02-27 10:18:50
+ * @LastEditTime: 2023-02-27 15:18:10
  * @LastEditors: 王云飞
  * @Description:
  *
@@ -20,8 +20,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'lib/main.ts'),
-      name: 'ViteLib', // 暴露的全局变量
-      fileName: 'vite-lib', // 输出的包文件名
+      name: 'SBoard', // 暴露的全局变量
+      fileName: 'signature-board-js', // 输出的包文件名
       formats: ['es', 'umd']
     },
     rollupOptions: {
