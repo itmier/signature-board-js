@@ -105,7 +105,33 @@ export default class SignBoard {
     this.canvasInstance?.removeEventListener('mouseup', this.handleMouseUp)
     this.IsDrawing = false
   }
-  createCanvas(selectorID: string) {
+  // 画布是否存在内容
+  getIsExistContent() {
+    return this.IsExistContent
+  }
+  // 清空签字板
+  clearBoard() {
+    this.canvasContext?.clearRect(0, 0, this.canvasInstance!.width, this.canvasInstance!.height)
+    this.IsExistContent = false
+  }
+  // 获取签字板base64地址
+  getBoardDataURL() {
+    const url = this.canvasInstance?.toDataURL('image/png')
+    return url
+  }
+  // 获取签字板的 blob
+  getBoardBlob(): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.canvasInstance?.toBlob((blob) => {
+          resolve(blob!)
+        })
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+  private createCanvas(selectorID: string) {
     const parentNode = document.getElementById(selectorID)
     if (!parentNode) {
       throw new Error('未捕获到容器元素!')

@@ -1,12 +1,13 @@
 /*
  * @Author: 王云飞
  * @Date: 2023-02-23 16:31:41
- * @LastEditTime: 2023-02-23 16:39:27
+ * @LastEditTime: 2023-02-27 10:20:40
  * @LastEditors: 王云飞
- * @Description: 
- * 
+ * @Description:
+ *
  */
-import { createApp } from "vue"
-
+import { createApp } from 'vue'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import App from './App.vue'
-createApp(App).mount('#app')
+createApp(App).use(ElementPlus).mount('#app')
