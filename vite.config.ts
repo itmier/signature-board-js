@@ -1,17 +1,18 @@
 /*
  * @Author: 王云飞
  * @Date: 2023-02-23 16:26:05
- * @LastEditTime: 2023-02-27 15:18:10
+ * @LastEditTime: 2023-02-27 15:44:12
  * @LastEditors: 王云飞
  * @Description:
  *
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import removeConsole from 'vite-plugin-remove-console'
 import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), removeConsole()],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
