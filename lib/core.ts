@@ -1,4 +1,5 @@
 import type { SignBoardType, PointParams } from './type/ComponentType'
+import { isMobileDevice } from './util'
 export default class SignBoard {
   private canvasInstance: HTMLCanvasElement | undefined
   private IsDrawing: boolean = false
@@ -12,8 +13,17 @@ export default class SignBoard {
   private lineColor: string = '#000000'
   constructor(options: SignBoardType) {
     this.canvasInstance = this.createCanvas(options.selectorID)
-    this.canvasInstance?.addEventListener('mouseenter', this.addEventListener)
-    this.canvasInstance?.addEventListener('mouseleave', this.removeEventListener)
+    this.handleEventListener()
+  }
+  private handleEventListener() {
+    if (isMobileDevice()) {
+      // 加载移动端事件
+      this.addMobileEventListener()
+    } else {
+      // 加载pc端事件
+      this.canvasInstance?.addEventListener('mouseenter', this.addEventListener)
+      this.canvasInstance?.addEventListener('mouseleave', this.removeEventListener)
+    }
   }
   drawEnd(pointParams: PointParams) {
     this.canvasContext?.beginPath()
@@ -68,8 +78,6 @@ export default class SignBoard {
     this.drawStart(pointParams)
   }
   private handleMouseMove = (e: MouseEvent) => {
-    console.log('鼠标移移动')
-
     e.preventDefault()
     if (this.IsDrawing) {
       const pointParams: PointParams = {
@@ -92,18 +100,54 @@ export default class SignBoard {
   }
   private addEventListener = () => {
     this.IsDrawing = false
-    console.log('鼠标进入')
     this.canvasInstance?.addEventListener('mousedown', this.handleMouseDown)
     this.canvasInstance?.addEventListener('mousemove', this.handleMouseMove)
     this.canvasInstance?.addEventListener('mouseup', this.handleMouseUp)
   }
   private removeEventListener = () => {
-    console.log('鼠标离开')
-
     this.canvasInstance?.removeEventListener('mousedown', this.handleMouseDown)
     this.canvasInstance?.removeEventListener('mousemove', this.handleMouseMove)
     this.canvasInstance?.removeEventListener('mouseup', this.handleMouseUp)
     this.IsDrawing = false
+  }
+  private addMobileEventListener() {
+    this.canvasInstance?.addEventListener('touchstart', this.handleTouchStart)
+    this.canvasInstance?.addEventListener('touchmove', this.handleTouchMove)
+    this.canvasInstance?.addEventListener('touchend', this.handleTouchEnd)
+  }
+  private handleTouchStart = (e: TouchEvent) => {
+    if (!this.canvasInstance) return
+    e.preventDefault()
+    this.IsExistContent = true
+    if (e.touches.length === 1) {
+      const pointParams = {
+        x: e.targetTouches[0].clientX - this.canvasInstance.getBoundingClientRect().left,
+        y: e.targetTouches[0].clientY - this.canvasInstance.getBoundingClientRect().top
+      }
+      this.drawStart(pointParams)
+    }
+  }
+  private handleTouchMove = (e: TouchEvent) => {
+    if (!this.canvasInstance) return
+    e.preventDefault()
+    if (e.touches.length === 1) {
+      const pointParams = {
+        x: e.targetTouches[0].clientX - this.canvasInstance?.getBoundingClientRect().left,
+        y: e.targetTouches[0].clientY - this.canvasInstance.getBoundingClientRect().top
+      }
+      this.drawMove(pointParams)
+    }
+  }
+  private handleTouchEnd = (e: TouchEvent) => {
+    if (!this.canvasInstance) return
+    e.preventDefault()
+    if (e.touches.length === 1) {
+      const pointParams = {
+        x: e.targetTouches[0].clientX - this.canvasInstance?.getBoundingClientRect().left,
+        y: e.targetTouches[0].clientY - this.canvasInstance.getBoundingClientRect().top
+      }
+      this.drawEnd(pointParams)
+    }
   }
   // 画布是否存在内容
   getIsExistContent() {
